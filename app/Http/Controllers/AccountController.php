@@ -208,4 +208,17 @@ class AccountController extends Controller
         return Redirect()->back();
 
     }
+
+    public function adminDashboard(){
+        $deposited = Account::sum('balance');
+        // dd($deposited);
+        $accounts = Account::count();
+        // dd($accounts);
+        $inactive = Account::where('status', 0)->count();
+        // dd($inactive);
+        $deleted = Account::onlyTrashed()->count();
+        // dd($deleted);
+
+        return view('admin.index', compact('deposited','accounts','inactive','deleted'));
+    }
 }

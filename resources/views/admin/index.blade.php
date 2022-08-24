@@ -29,9 +29,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{ $accounts }}</h3>
 
-                <p>New Accounts</p>
+                <p>Total Accounts</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -44,9 +44,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3> <span class="dollars1"> {{ $deposited }}</span></h3>
 
-                <p>Total Accounts</p>
+                <p>Total Deposited</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -59,7 +59,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{ $inactive }}</h3>
 
                 <p>Inactive Accounts</p>
               </div>
@@ -74,7 +74,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{ $deleted }}</h3>
 
                 <p>Deleted Accounts</p>
               </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonalInfoController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\PersonalInfo;
@@ -21,10 +22,7 @@ use App\Models\PersonalInfo;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/dash', function () {
-    
 
-});
 // Route::get('/user/dashboard', function () {
 //     return view('user.dashboard');
 // })->name('mchongo');
@@ -65,12 +63,7 @@ Route::middleware([
     'verified',
     'isAdmin'
 ])->group(function () {
-    Route::get('/admin/dashboard', function () {
-
-        $users = User::all();
-
-        return view('admin.index', compact('users'));
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AccountController::class, 'adminDashboard'])->name('admin.dashboard');
 });
 
 
@@ -114,6 +107,8 @@ Route::get('/pdelete/account/{id}', [AccountController::class, 'pdelete']);
 
 
 Route::get('/dashboard', [AccountController::class, 'display'])->name('dashboard');
+
+Route::get('/admin/logout', [Controller::class, 'logoutAdmin'])->name('admin.logout');
 
 Route::get('/print', [AccountController::class, 'print'])->name('print');
 

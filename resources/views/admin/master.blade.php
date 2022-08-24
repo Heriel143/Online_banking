@@ -29,6 +29,11 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <style type="text/css">
+    .dollars:before { content:'TZS '; }
+  </style>
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -248,12 +253,12 @@
           </li>
           <li class="nav-header">LABELS</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.logout') }}" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Important</p>
+              <p class="text">Logout</p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Warning</p>
@@ -264,7 +269,7 @@
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Informational</p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -340,5 +345,14 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+<script>
+  let x = document.querySelectorAll(".dollars1");
+  for (let i = 0, len = x.length; i < len; i++) {
+      let num = Number(x[i].innerHTML)
+                .toLocaleString('en');
+      x[i].innerHTML = num;
+      x[i].classList.add("dollars");
+  }
+</script>
 </body>
 </html>
