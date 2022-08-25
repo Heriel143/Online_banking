@@ -18,4 +18,9 @@ class Transaction extends Model
     public function account(){
         return $this->hasOne(Account::class, 'account_no', 'sender_acc_no'); 
     }
+    public function rock(){
+        return $this->hasOne(Account::class, 'account_no', 'receiver_acc_no'); 
+    }
+
+    
 }

@@ -48,8 +48,8 @@
   @foreach($transaction as $account)
   <tr>
     <td>{{ $i++ }}</td>
-    <td>{{ $account->sender_acc_no }}</td>
-    <td>{{ $account->receiver_acc_no }}</td>
+    <td>{{ $account->account->account_name }}</td>
+    <td>{{ $account->rock->account_name }}</td>
     <td>{{ $account->amount }}</td>
     <td>{{ $account->created_at }}</td>
   </tr>

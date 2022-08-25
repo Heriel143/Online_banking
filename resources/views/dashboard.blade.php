@@ -78,7 +78,7 @@
     
     <div class="col-md-10">
         <div class="card">
-            <div class="card-header">Transactions</div>
+            <div class="card-header">Latest Transactions</div>
         </div>
         <table class="table">
             <thead>
@@ -94,14 +94,15 @@
 
             <tbody>
                 @php($i = 1)
-                @foreach($transaction as $account)
+                @foreach($transaction as $accounts)
                 <tr>
                 <td scope="row">{{ $i++ }}</td>
-                <td>{{ $account->sender_acc_no }}</td>
-                <td>{{ $account->receiver_acc_no }}</td>
-                <td>{{ $account->amount }}</td>
-                <td>{{ $account->created_at }}</td>
-                <td>{{ $account->created_at->diffForHumans() }} </td>
+                <td> {{ $accounts->account->account_name }}</td>
+                {{-- dd($accounts); --}}
+                <td>{{ $accounts->rock->account_name }}</td>
+                <td>{{ $accounts->amount }}</td>
+                <td>{{ $accounts->created_at }}</td>
+                <td>{{ $accounts->created_at->diffForHumans() }} </td>
                 
                 </tr>
                 @endforeach
