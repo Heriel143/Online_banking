@@ -9,19 +9,63 @@
     </x-slot>
 
 
-    <div class="row g-3 m-4 d-flex centre gap-2 ">
-        <div class="col-md-2 border border-dark b-radius-8">
-            <h1 class="display-6 ">Balance {{ $display[0]['balance'] }}</h1>
+    <section class="content w-75 mx-auto my-4">
+        <div class="container-fluid">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                    
+                  <h3> <span class="dollars1">{{ $display[0]['balance'] }} </span></h3>
+  
+                  <p>Balance</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3> <span class="dollars1">{{ $deposit }} </span></h3>
+  
+                  <p>Total Deposited</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3><span class="dollars1">{{ $withdraw }}</span></h3>
+  
+                  <p>Total withdrawn</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+              </div>
+            </div>
+            <!-- ./col -->
+            
         </div>
-
-        <div class="col-md-2 border border-dark b-radius-8">
-            <h1 class="display-6">Total Deposit {{ $deposit }}</h1>
-        </div>
-        <div class="col-md-2 border border-dark radius-8">
-            <h1 class="display-6">Total Withdrawn {{ $withdraw }}</h1>
-        </div>
-        
-    </div> 
+          <!-- /.row -->
+          
+          <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+      </section>
     
 <div class="container">
     <div class="row">
@@ -34,7 +78,7 @@
     
     <div class="col-md-10">
         <div class="card">
-            <div class="card-header">All Accounts</div>
+            <div class="card-header">Transactions</div>
         </div>
         <table class="table">
             <thead>

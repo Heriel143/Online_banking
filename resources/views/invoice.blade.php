@@ -2,8 +2,11 @@
 <html>
 <head>
 <style>
+  *{
+    font-family:verdana;
+  }
 #customers {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -28,7 +31,10 @@
 </head>
 <body>
 
-<h1>A Bank Statement</h1>
+  <h2 style="text-align: center;">Account Name: {{ $display[0]['account_name'] }}</h2>
+
+
+<h3>A Bank Statement</h3>
 
 <table id="customers">
   <tr>
@@ -50,6 +56,7 @@
   @endforeach
   
 </table>
+<p style="float: right;">Current Balance: TZS <span class="dollars">{{ $display[0]['balance'] }}</span></p>
 
 </body>
 

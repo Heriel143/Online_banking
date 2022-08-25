@@ -114,7 +114,9 @@ class AccountController extends Controller
         if(!$sender[0]['status'])
             return Redirect()->back()->with('warning',' Your account is Inactive, cant make transaction');
 
-        if(intval($sender[0]['balance']) < $request->amount)
+        $todedact = intval($request->amount) + 500;
+
+        if(intval($sender[0]['balance']) < $todedact)
             return Redirect()->back()->with('warning',' You have no enough Balance.');
 
         $no= intval($request->account_no);
@@ -135,7 +137,7 @@ class AccountController extends Controller
 
         $withdraw = Account::where('account_no', $num);
         // dd($withdraw);
-        $withdraw->decrement('balance', $request->amount);
+        $withdraw->decrement('balance', $todedact);
         $acc= intval($request->account_no);
         
         // dd($acc);
@@ -147,6 +149,10 @@ class AccountController extends Controller
 
 
         $deposit->increment('balance',$request->amount);
+
+        //bank account
+        $bank = Account::where('account_no', 1);
+        $bank->increment('balance', 500);
 
 
         $transaction = new Transaction;
@@ -175,7 +181,7 @@ class AccountController extends Controller
             $withdraw = Transaction::where('sender_acc_no', $acc)->sum('amount');
 
             $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
-
+            // dd($display);
         
             return view('dashboard', compact('display', 'deposit', 'withdraw','transaction'));
         } else{
@@ -184,11 +190,20 @@ class AccountController extends Controller
     }
 
     public function print(){
-        $display = Account::where('user_id', Auth::user()->id)->get();
+        $user = Auth::user()->id;
+        
+        $toprint = Account::where('user_id', $user);
+        $toprint->decrement('balance', 200);
+
+        $bank = Account::where('account_no', 1);
+        $bank->increment('balance', 200);
+
+
+        $display = Account::where('user_id', $user)->get();
         $acc = $display[0]['account_no'];
         $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
 
-        $pdf = Pdf::loadView('invoice', compact('transaction'));
+        $pdf = Pdf::loadView('invoice', compact('transaction','display'));
         return $pdf->stream('invoice.pdf');
     }
 
@@ -210,8 +225,13 @@ class AccountController extends Controller
     }
 
     public function adminDashboard(){
-        $deposited = Account::sum('balance');
-        // dd($deposited);
+        $deposits = Account::sum('balance');
+        
+        $deposited = intval($deposits);
+
+        $bank = Account::where('account_no', 1)->get(['balance']);
+        $bank_account = intval($bank[0]['balance']);
+        
         $accounts = Account::count();
         // dd($accounts);
         $inactive = Account::where('status', 0)->count();
@@ -219,6 +239,6 @@ class AccountController extends Controller
         $deleted = Account::onlyTrashed()->count();
         // dd($deleted);
 
-        return view('admin.index', compact('deposited','accounts','inactive','deleted'));
+        return view('admin.index', compact('deposited','accounts','inactive','deleted', 'bank_account'));
     }
 }
