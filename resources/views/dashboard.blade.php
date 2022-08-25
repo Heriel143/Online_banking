@@ -4,8 +4,9 @@
             
         Hi... <b>{{ Auth::user()->name }}</b> 
 
-
+          <b style="float: right;">Account no. {{ $display[0]['account_no'] }}</b>
         </h2>
+
     </x-slot>
 
 

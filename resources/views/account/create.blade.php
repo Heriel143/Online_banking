@@ -3,7 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             
         Hi... <b>{{ Auth::user()->name }}</b> 
-        <b style="float: right;"> Total Users <span class="text-danger"></span></b>
 
 
         </h2>
@@ -21,7 +20,7 @@
                 <h3 class="display-6"> Account details </h3>
 
                 <div class="col-md-6">
-                    <h3 class="m-2">Account type</h3>
+                    <label class="m-2">Account type</label>
                     <select class="form-select" aria-label="Default select example" name="account_type">
                         <option value=""> Select an Account </option>
                         <option value="1">Fahari</option>
@@ -39,31 +38,33 @@
                         <span class="text-danger">{{ $message}}</span>
                     @enderror
                 </div>
-                <div class="m-1">
-                    <label for="exampleInputEmail1" class="form-label"> Currency </label>
-
-                    <div class="form-check ms-3">
-                        <input class="form-check-input" type="checkbox" value="TSHs" name="currency_type" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                            TSHs
-                        </label>
-                    </div>
-                    <div class="form-check ms-3">
-                        <input class="form-check-input" type="checkbox" value="" name="" id="defaultCheck2">
-                        <label class="form-check-label" for="defaultCheck2">
-                            USD
-                        </label>
-                    </div>
-                    <div class="form-check ms-3">
-                        <input class="form-check-input" type="checkbox" value="" name="" id="defaultCheck2">
-                        <label class="form-check-label" for="defaultCheck2">
-                            EUR
-                        </label>
-                    </div>
+                <h1></h1>
+                <div class="col-md-4">
+                    <label for="exampleInputEmail1" class="form-label"> Currency Type </label>
+                        <select class="form-select" aria-label="Default select example" name="currency_type">
+                            <option value=""> Select </option>
+                            <option value="TZS"> TZS </option>
+                            <option value="USD"> USD </option>
+                            <option value="EUR"> EUR </option>
+                        </select>
                     @error('currency_type')
                         <span class="text-danger">{{ $message}}</span>
                     @enderror
                 </div>
+                <br>
+                <div class="col-md-4">
+                    <label for="exampleInputEmail1" class="form-label"> Card type </label>
+                        <select class="form-select" aria-label="Default select example" name="card_type">
+                            <option value=""> Select </option>
+                            <option value="2"> Master card </option>
+                            <option value="1"> Visa card </option>
+                            <option value="3"> Tembo card </option>
+                        </select>
+                    @error('card_type')
+                        <span class="text-danger">{{ $message}}</span>
+                    @enderror
+                </div>
+                <h1></h1>
                 <div class="col-md-6">
                     <label for="exampleInputEmail1" class="form-label"> Monthly Earn</label>
                     <input type="text" class="form-control rounded" name="monthly_earnings" >

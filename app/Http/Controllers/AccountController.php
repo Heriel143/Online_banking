@@ -9,7 +9,8 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PersonalInfo;
-
+use App\Models\Card;
+use Illuminate\Support\Carbon;
 use Auth;
 
 
@@ -26,9 +27,13 @@ class AccountController extends Controller
             'account_name' => 'required|max:150',
             'currency_type' => 'required|max:4',
             'monthly_earnings' => 'required|max:50',
+            'card_type' => 'required',
         ]);
 
         $number = mt_rand(40000000000000,50000000000000);
+        $card = mt_rand(500000000000,600000000000);
+        $cvv = mt_rand(100,1000);
+        
 
         $account = new Account;
         $account->user_id = Auth::user()->id;
@@ -40,6 +45,17 @@ class AccountController extends Controller
         $account->balance = 0;
         $account->status = 1;
         $account->save();
+
+        $card_new = new Card;
+        $card_new->card_no = $card;
+        $card_new->account_no = $number;
+        $card_new->card_type = $request->card_type;
+        $card_new->cvv = $cvv;
+        $dt = Carbon::now();
+        $dt->addYears(10); 
+        $card_new->expire = $dt;
+        $card_new->save();
+        
 
         return Redirect()->back()->with('success', 'Account created successfully.');
     }
