@@ -19,6 +19,8 @@ return new class extends Migration
             $table->bigInteger('receiver_acc_no');
             $table->string('receiver_acc_name');
             $table->integer('amount');
+            $table->integer('charge');
+
             $table->timestamps();
         });
     }

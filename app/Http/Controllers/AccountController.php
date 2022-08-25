@@ -160,6 +160,8 @@ class AccountController extends Controller
         $transaction->receiver_acc_no = $request->account_no;
         $transaction->receiver_acc_name = $request->account_name;
         $transaction->amount = $request->amount;
+        $transaction->charge = 500;
+
         $transaction->save();
 
         return Redirect()->back()->with('success',' Money sent successfully');

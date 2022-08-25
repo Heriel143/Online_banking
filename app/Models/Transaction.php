@@ -12,6 +12,7 @@ class Transaction extends Model
         'receiver_acc_no',
         'receiver_acc_name',
         'amount',
+        'charge',
     ];
     
 
