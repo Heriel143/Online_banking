@@ -206,6 +206,28 @@ class AccountController extends Controller
             return redirect('personInfo');
         }
     }
+    public function display2($id){
+        $display = Account::where('user_id', Auth::user()->id)->get();
+        // dd();
+        // if(count($data)){
+            // dd($display);
+            
+
+
+
+            $data = Account::where('account_no', $id)->get();
+            $acc = $id;
+            $deposit = Transaction::where('receiver_acc_no', $acc)->sum('amount');
+            $withdraw = Transaction::where('sender_acc_no', $acc)->sum('amount');
+
+            $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
+            // dd($display);
+        
+            return view('user.dashboard2', compact('display', 'deposit', 'withdraw','transaction','acc','data'));
+        // } else{
+            // return redirect('personInfo');
+        // }
+    }
 
     public function print(){
         $user = Auth::user()->id;
@@ -222,6 +244,22 @@ class AccountController extends Controller
         $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
 
         $pdf = Pdf::loadView('invoice', compact('transaction','display'));
+        return $pdf->stream('invoice.pdf');
+    }
+    public function print2($id){
+        
+        $toprint = Account::where('account_no', $id);
+        $toprint->decrement('balance', 200);
+
+        $bank = Account::where('account_no', 1);
+        $bank->increment('balance', 200);
+
+
+        $display = Account::where('account_no', $id)->get();
+        $acc = $id;
+        $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
+
+        $pdf = Pdf::loadView('user.invoice', compact('transaction','display'));
         return $pdf->stream('invoice.pdf');
     }
 

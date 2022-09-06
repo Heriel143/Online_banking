@@ -108,9 +108,13 @@ Route::get('/pdelete/account/{id}', [AccountController::class, 'pdelete']);
 
 Route::get('/dashboard', [AccountController::class, 'display'])->name('dashboard');
 
+Route::get('/dashboard/{id}', [AccountController::class, 'display2']);
+
 Route::get('/admin/logout', [Controller::class, 'logoutAdmin'])->name('admin.logout');
 
 Route::get('/print', [AccountController::class, 'print'])->name('print');
+
+Route::get('/print/{id}', [AccountController::class, 'print2']);
 
 Route::get('/account/status/{id}', [AccountController::class, 'change_status'])->name('status');
 

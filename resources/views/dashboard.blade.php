@@ -3,9 +3,43 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             
         Hi... <b>{{ Auth::user()->name }}</b> 
+        <span style="float: right;">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account no. {{ $display[0]['account_no'] }}
+          </a>
+          <ul class="dropdown-menu">
+            @php($i = 0)
+            @foreach ($display as $displays)
+            <p class="hidden">{{ $i++ }}</p>
+              @if ($i == 1)
+                @continue;
+              @endif
+              <li><a class="dropdown-item" href="{{ url('dashboard/'.$displays->account_no) }}">{{ $displays->account_no }}-{{ $displays->account_name }}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              
+            @endforeach
+          </ul>
+        </li>
+        </ul>
+        </span>
 
-          <b style="float: right;">Account no. {{ $display[0]['account_no'] }}</b>
-        </h2>
+          {{-- <span style="float: right;">
+          <select class="form-select form-select-lg  " aria-label=".form-select-lg example">
+            <option selected>Account no. {{ $display[0]['account_no'] }} </option>
+            @php($i = 0)
+            @foreach ($display as $displays)
+            {{ $i++ }}
+              @if ($i == 1)
+                @continue;
+              @endif
+              <option > <a href="{{ url('dashboard/'.$displays->account_no) }}"> {{ $displays->account_no }}-{{ $displays->account_name }}</a></option>
+              
+            @endforeach
+          </select>
+        </span>
+        </h2> --}}
 
     </x-slot>
 
