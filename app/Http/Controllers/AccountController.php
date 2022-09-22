@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\User;
 use App\Models\Transaction;
 // use App\Http\Controllers\DB;
 use Illuminate\Support\Facades\DB;
@@ -62,10 +63,15 @@ class AccountController extends Controller
 
 
     public function allAcc(){
-        $accounts = Account::latest()->paginate(5);
-        $trashAccounts = Account::onlyTrashed()->latest()->paginate(5);
+        $accounts = Account::latest()->get();
+        $trashAccounts = Account::onlyTrashed()->latest()->get();
 
         return view('admin.accounts', compact('accounts','trashAccounts'));
+    }
+    public function trash_account(){
+        $trashAccounts = Account::onlyTrashed()->latest()->get();
+
+        return view('admin.trashAccounts', compact('trashAccounts'));
     }
 
     public function editAcc($id){
@@ -199,7 +205,10 @@ class AccountController extends Controller
             $withdraw = Transaction::where('sender_acc_no', $acc)->sum('amount');
 
             $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
-            // dd($display);
+            // dd($transaction);
+            // dd($transaction[1]->account_name);
+
+
         
             return view('dashboard', compact('display', 'deposit', 'withdraw','transaction'));
         } else{
@@ -221,7 +230,8 @@ class AccountController extends Controller
             $withdraw = Transaction::where('sender_acc_no', $acc)->sum('amount');
 
             $transaction = Transaction::where('sender_acc_no', $acc)->orwhere('receiver_acc_no', $acc)->get();
-            // dd($display);
+            // dd($transaction);
+
         
             return view('user.dashboard2', compact('display', 'deposit', 'withdraw','transaction','acc','data'));
         // } else{
@@ -297,4 +307,40 @@ class AccountController extends Controller
 
         return view('admin.index', compact('deposited','accounts','inactive','deleted', 'bank_account'));
     }
+
+
+
+    public function searchUser(Request $request){
+
+
+        $users = User::where('name','like','%'.$request->$search_string.'%')
+        ->orWhere('email','like','%'.$request->search_string.'%')
+        ->orderBy('id','desc')
+        ->paginate(3);
+        
+        if($users->count() >= 1){
+            return view('admin.paginateUser', compact('users'))->render();
+        }else{
+            return responce()->json([
+                'status' => 'nothing_found',
+            ]);
+        }
+
+    }
+
+    public function userPagination(Request $request){
+
+        $users = User::latest()->paginate(3);
+
+        return view('admin.paginateUser', compact('users'))->render();
+    }
+
+    public function card(){
+        $user = Auth::user()->id;
+        
+        $cards = Account::where('user_id', $user)->get();
+        // dd($user);
+        return view('user.credit_card', compact('cards'));
+    }
 }
+

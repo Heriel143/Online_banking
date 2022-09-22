@@ -133,7 +133,6 @@
                 <tr>
                 <td scope="row">{{ $i++ }}</td>
                 <td> {{ $accounts->account->account_name }}</td>
-                {{-- dd($accounts); --}}
                 <td>{{ $accounts->rock->account_name }}</td>
                 <td>{{ $accounts->amount }}</td>
                 <td>{{ $accounts->created_at }}</td>

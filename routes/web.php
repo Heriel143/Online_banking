@@ -64,6 +64,9 @@ Route::middleware([
     'isAdmin'
 ])->group(function () {
     Route::get('/admin/dashboard', [AccountController::class, 'adminDashboard'])->name('admin.dashboard');
+    
+    Route::get('/admin/trash_account', [AccountController::class, 'trash_account'])->name('admin.trash_account');
+
 });
 
 
@@ -78,7 +81,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/users', function () {
 
-        $users = User::all();
+        $users = User::latest()->get();
 
         return view('admin.users', compact('users'));
     })->name('users');
@@ -123,3 +126,11 @@ Route::get('/account/status/{id}', [AccountController::class, 'change_status'])-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/search-user', [AccountController::class, 'searchUser'])->name('search.user');
+
+
+Route::get('/users/paginate', [AccountController::class, 'userPagination']);
+
+
+Route::get('/card', [AccountController::class, 'card'])->name('cards');
